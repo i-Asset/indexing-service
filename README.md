@@ -1,6 +1,5 @@
 # indexing-service
-Spring-Boot Service providing search capabilites with Apache SOLR. This servicve extends the generic solr-indexing module with
-additional services and SOLR-data models
+Spring-Boot Service providing search capabilites with Apache SOLR. This servicve extends the generic [solr-indexing module](https://github.com/i-Asset/solr-indexing) with additional services and SOLR-data models
 
 ## requirements
 
