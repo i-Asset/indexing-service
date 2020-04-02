@@ -59,6 +59,7 @@ public class AssetIndexingApplicationTests {
 			e.printStackTrace();
 		}
 		Optional<PropertyType> cust = propertyService.findCustomProperty(AssetType.class, "operationMixDemo2");
+		
 		assertTrue(cust.isPresent());
 		PropertyType custProp = cust.get();
 		assertTrue(custProp.getItemFieldNames().contains("operationMixDemo2"));
