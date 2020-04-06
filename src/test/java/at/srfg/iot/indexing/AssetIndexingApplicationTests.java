@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import at.srfg.indexing.asset.AssetType;
+import at.srfg.indexing.asset.SubmodelType;
 import at.srfg.indexing.model.common.PropertyType;
 import at.srfg.indexing.model.common.ValueQualifier;
 import at.srfg.iot.indexing.service.AssetService;
@@ -30,7 +31,26 @@ public class AssetIndexingApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
-	
+	@Test
+	public void testSubmodel() {
+		AssetType asset = new AssetType();
+		asset.setUri("urn:asset:1");
+		asset.setLabel("MyAsset", Locale.ENGLISH);
+		asset.setLocalName("1");
+		asset.setNameSpace("urn:asset:");
+		asset.setCode("1");
+		asset.addDescription("This is my first asset description", Locale.ENGLISH);
+		SubmodelType submodelType = new SubmodelType();
+		submodelType.setUri("urn:asset:submodel:1");
+		submodelType.setLabel("submodel", Locale.ENGLISH);
+		submodelType.setLocalName("1");
+		submodelType.setNameSpace("urn:asset:");
+		submodelType.setCode("1");
+		submodelType.addDescription("This is my first submodel description", Locale.ENGLISH);
+		submodelType.addProperty("myValue", "container", "param");
+		asset.addSubmodel(submodelType);
+		assetService.set(asset);
+	}
 	@Test
 	public void testClassification() {
 		PropertyType labelProperty = new PropertyType();
