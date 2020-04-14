@@ -36,7 +36,6 @@ import io.swagger.annotations.Api;
 @RestController
 @Api(value = "Indexing Controller", description = "Search API to perform Solr operations on indexed parties (organizations), items, item-properties, "
 		+ "property-codes and classes (item categories)")
-@RequestMapping("/a")
 public class AssetIndexingController extends BasicIndexingAPI implements AssetTypeIndexing, PartyTypeIndexing {
 
 
