@@ -2,7 +2,8 @@ package at.srfg.iot.indexing.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import at.srfg.indexing.party.PartyType;
+import at.srfg.indexing.core.service.impl.SolrServiceImpl;
+import at.srfg.indexing.model.party.PartyType;
 import at.srfg.iot.indexing.service.PartyService;
 
 @Service

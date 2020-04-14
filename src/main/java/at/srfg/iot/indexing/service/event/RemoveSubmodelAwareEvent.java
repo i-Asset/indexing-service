@@ -2,7 +2,7 @@ package at.srfg.iot.indexing.service.event;
 
 import org.springframework.context.ApplicationEvent;
 
-import at.srfg.indexing.asset.ISubmodelAware;
+import at.srfg.indexing.model.asset.ISubmodelAware;
 
 public class RemoveSubmodelAwareEvent extends ApplicationEvent {
 

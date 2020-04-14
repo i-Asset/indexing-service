@@ -7,28 +7,17 @@ import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.solr.core.query.SolrPageRequest;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import at.srfg.indexing.AssetTypeIndexing;
-import at.srfg.indexing.ClassTypeIndexing;
-import at.srfg.indexing.CodedTypeIndexing;
 import at.srfg.indexing.PartyTypeIndexing;
-import at.srfg.indexing.PropertyTypeIndexing;
-import at.srfg.indexing.asset.AssetType;
-import at.srfg.indexing.model.common.ClassType;
-import at.srfg.indexing.model.common.CodedType;
-import at.srfg.indexing.model.common.PropertyType;
+import at.srfg.indexing.core.controller.BasicIndexingAPI;
+import at.srfg.indexing.model.asset.AssetType;
+import at.srfg.indexing.model.party.PartyType;
 import at.srfg.indexing.model.solr.FacetResult;
 import at.srfg.indexing.model.solr.IndexField;
 import at.srfg.indexing.model.solr.Search;
 import at.srfg.indexing.model.solr.SearchResult;
-import at.srfg.indexing.party.PartyType;
-import at.srfg.iot.indexing.service.ClassService;
-import at.srfg.iot.indexing.service.CodeService;
-import at.srfg.iot.indexing.service.PropertyService;
 //import eu.nimble.utility.LoggerUtils;
 import io.swagger.annotations.Api;
 

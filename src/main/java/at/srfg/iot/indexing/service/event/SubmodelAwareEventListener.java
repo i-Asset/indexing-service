@@ -15,12 +15,12 @@ import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import at.srfg.indexing.asset.ISubmodelAware;
-import at.srfg.indexing.asset.SubmodelType;
+import at.srfg.indexing.core.service.repository.PropertyRepository;
+import at.srfg.indexing.model.asset.ISubmodelAware;
+import at.srfg.indexing.model.asset.SubmodelType;
 import at.srfg.indexing.model.common.ICustomPropertyAware;
 import at.srfg.indexing.model.common.PropertyType;
 import at.srfg.indexing.model.common.ValueQualifier;
-import at.srfg.iot.indexing.service.repository.PropertyRepository;
 import at.srfg.iot.indexing.service.repository.SubmodelRepository;
 
 @Component
