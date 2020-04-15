@@ -7,6 +7,8 @@ import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.solr.core.query.SolrPageRequest;
 import org.springframework.web.bind.annotation.RestController;
 
 import at.srfg.indexing.AssetTypeIndexing;
@@ -18,6 +20,8 @@ import at.srfg.indexing.model.solr.FacetResult;
 import at.srfg.indexing.model.solr.IndexField;
 import at.srfg.indexing.model.solr.Search;
 import at.srfg.indexing.model.solr.SearchResult;
+import at.srfg.iot.indexing.service.AssetService;
+import at.srfg.iot.indexing.service.PartyService;
 //import eu.nimble.utility.LoggerUtils;
 import io.swagger.annotations.Api;
 
@@ -27,6 +31,11 @@ import io.swagger.annotations.Api;
 		+ "property-codes and classes (item categories)")
 public class AssetIndexingController extends BasicIndexingAPI implements AssetTypeIndexing, PartyTypeIndexing {
 
+	@Autowired
+	protected AssetService assetService;
+	
+	@Autowired
+	protected PartyService partyService;
 
 //	@Autowired
 //	private IdentityService identityService;
@@ -35,89 +44,80 @@ public class AssetIndexingController extends BasicIndexingAPI implements AssetTy
 
 	@Override
 	public Optional<PartyType> getPartyType(String uri) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return partyService.get(uri);
 	}
 
 	@Override
 	public Collection<IndexField> fieldsForPartyType(Set<String> fieldNames) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return partyService.fields(fieldNames);
 	}
 
 	@Override
 	public SearchResult<PartyType> searchForPartyType(String query, List<String> filterQuery, List<String> facetFields,
 			int facetLimit, int facetMinCount, int start, int rows) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return partyService.select(query, filterQuery, facetFields, facetLimit, 
+				facetMinCount, new SolrPageRequest(start, rows));
 	}
 
 	@Override
 	public SearchResult<PartyType> searchForPartyType(Search search) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return partyService.search(search);
 	}
 
 	@Override
 	public FacetResult suggestForPartyType(String query, String fieldName, int limit, int minCount) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return partyService.suggest(query, fieldName, limit, minCount);
 	}
 
 	@Override
 	public PartyType setPartyType(PartyType prop) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		partyService.set(prop);
+		return prop;
 	}
 
 	@Override
 	public boolean deletePartyType(String uri) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+		// 
+		partyService.remove(uri);
+		return true;
 	}
 
 	@Override
 	public Optional<AssetType> getAssetType(String uri) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return assetService.get(uri);
 	}
 
 	@Override
 	public Collection<IndexField> fieldsForAssetType(Set<String> fieldNames) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return assetService.fields(fieldNames);
 	}
 
 	@Override
 	public SearchResult<AssetType> searchForAssetType(String query, List<String> filterQuery, List<String> facetFields,
 			int facetLimit, int facetMinCount, int start, int rows) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return assetService.select(query, filterQuery, facetFields, facetLimit, 
+				facetMinCount, new SolrPageRequest(start, rows));
 	}
 
 	@Override
 	public SearchResult<AssetType> searchForAssetType(Search search) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return assetService.search(search);
 	}
 
 	@Override
 	public FacetResult suggestForAssetType(String query, String fieldName, int limit, int minCount) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return assetService.suggest(query, fieldName, limit, minCount);
 	}
 
 	@Override
 	public AssetType setAssetType(AssetType prop) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		assetService.set(prop);
+		return prop;
 	}
 
 	@Override
 	public boolean deleteAssetType(String uri) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+		assetService.remove(uri);
+		return true;
 	}
-
-
 }
