@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: indexing-service
+    name: asset-indexing-service
   cloud:
     config:
       enabled: ${CONFIG_SERVER_ENABLED:true}
