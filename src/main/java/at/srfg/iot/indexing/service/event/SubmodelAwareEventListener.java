@@ -94,11 +94,11 @@ public class SubmodelAwareEventListener {
 					changed.put(newProp.getUri(), newProp);
 				}
 			});
-			submodelRepo.saveAll(changed.values());
-//			// save all changed & new properties
-//			for (SubmodelType newPt : changed.values()) {
-//				submodelRepo.save(newPt);
-//			}
+//			submodelRepo.saveAll(changed.values());
+			// save all changed & new properties
+			for (SubmodelType newPt : changed.values()) {
+				submodelRepo.save(newPt);
+			}
 		}
 	}
 	/**

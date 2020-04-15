@@ -20,7 +20,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 	// reuse components from solr-indexing (indexing core)
 	"at.srfg.indexing.core", 
 	// scan for components in the following sub-tree
-	"at.srfg.iot.indexing"})
+	"at.srfg.iot.indexing",
+	})
 @RestController
 @EnableSwagger2
 @EnableAsync
