@@ -20,14 +20,14 @@ node('nimble-jenkins-slave') {
 
             sh 'rm -rf solr-model'
             sh 'git clone https://github.com/i-Asset/solr-model.git'
-            dir('common') {
+            dir('solr-model') {
                 sh 'git checkout ' + env.BRANCH_NAME
                 sh 'mvn clean install'
             }
 
             sh 'rm -rf solr-indexing'
             sh 'git clone https://github.com/i-Asset/solr-indexing.git'
-            dir('common') {
+            dir('solr-indexing') {
                 sh 'git checkout ' + env.BRANCH_NAME
                 sh 'mvn clean install -DskipTests'
             }
