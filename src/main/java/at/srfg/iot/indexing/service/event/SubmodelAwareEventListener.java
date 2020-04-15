@@ -34,8 +34,9 @@ public class SubmodelAwareEventListener {
 		ISubmodelAware item = event.getItem();
 		// find all submodels linked to the submodel aware item
 		List<SubmodelType> subModels = submodelRepo.findByAsset(item.getUri());
-		submodelRepo.deleteAll(subModels);
-		
+		if ( ! subModels.isEmpty()) {
+			submodelRepo.deleteAll(subModels);
+		}
 	}
 	@Async
 	@EventListener

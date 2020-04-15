@@ -9,6 +9,7 @@ import at.srfg.indexing.core.service.impl.SolrServiceImpl;
 import at.srfg.indexing.model.asset.AssetType;
 import at.srfg.indexing.model.asset.SubmodelType;
 import at.srfg.iot.indexing.service.AssetService;
+import at.srfg.iot.indexing.service.event.RemoveSubmodelAwareEvent;
 import at.srfg.iot.indexing.service.event.SubmodelAwareEvent;
 import at.srfg.iot.indexing.service.repository.SubmodelRepository;
 
@@ -46,4 +47,14 @@ public class AssetServiceImpl extends SolrServiceImpl<AssetType> implements Asse
 			t.addSubmodel(sub);
 		}
 	}
+	/**
+	 * On remove - also remove all submodels of the asset 
+	 */
+	@Override
+	protected void postRemove(AssetType t) {
+		super.postRemove(t);
+		// send remove event
+		getEventPublisher().publishEvent(new RemoveSubmodelAwareEvent(this, t));
+	}
+	
 }

@@ -18,6 +18,7 @@ import at.srfg.indexing.model.asset.SubmodelType;
 import at.srfg.indexing.model.common.PropertyType;
 import at.srfg.indexing.model.common.ValueQualifier;
 import at.srfg.iot.indexing.service.AssetService;
+import at.srfg.iot.indexing.service.SubmodelService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -28,6 +29,10 @@ public class AssetIndexingApplicationTests {
 	
 	@Autowired
 	private AssetService assetService;
+	
+	@Autowired
+	private SubmodelService submodelService;
+	
 	@Test
 	public void contextLoads() {
 	}
@@ -50,6 +55,32 @@ public class AssetIndexingApplicationTests {
 		submodelType.addProperty("myValue", "container", "param");
 		asset.addSubmodel(submodelType);
 		assetService.set(asset);
+		try {
+			// allow async to complete
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// 
+		Optional<SubmodelType> opt = submodelService.get(submodelType.getUri());
+		assertTrue(opt.isPresent());
+		SubmodelType read = opt.get();
+		assertTrue(read.getAsset().equals(asset.getUri()));
+		
+		// 
+		assetService.remove(asset.getUri());
+		try {
+			// allow async to complete
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Optional<SubmodelType> postDelete = submodelService.get(submodelType.getUri());
+		assertFalse(postDelete.isPresent());
+
+		
 	}
 	@Test
 	public void testClassification() {
@@ -95,7 +126,7 @@ public class AssetIndexingApplicationTests {
 //		
 		try {
 			// allow async to complete
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
