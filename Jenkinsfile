@@ -59,15 +59,28 @@ node('iasset-jenkins-slave') {
     if (env.BRANCH_NAME == 'master') {
 
         stage('Clone and Update') {
-            git(url: 'https://github.com/nimble-platform/indexing-service.git', branch: env.BRANCH_NAME)
+            git(url: 'https://github.com/i-Asset/indexing-service', branch: env.BRANCH_NAME)
         }
-
         stage('Build Dependencies') {
             sh 'rm -rf common'
-            sh 'git clone https://github.com/nimble-platform/common'
+            sh 'git clone https://github.com/i-Asset/common.git'
             dir('common') {
                 sh 'git checkout ' + env.BRANCH_NAME
                 sh 'mvn clean install'
+            }
+
+            sh 'rm -rf solr-model'
+            sh 'git clone https://github.com/i-Asset/solr-model.git'
+            dir('solr-model') {
+                sh 'git checkout ' + env.BRANCH_NAME
+                sh 'mvn clean install'
+            }
+
+            sh 'rm -rf solr-indexing'
+            sh 'git clone https://github.com/i-Asset/solr-indexing.git'
+            dir('solr-indexing') {
+                sh 'git checkout ' + env.BRANCH_NAME
+                sh 'mvn clean install -DskipTests'
             }
         }
 
@@ -90,16 +103,31 @@ node('iasset-jenkins-slave') {
     if( env.TAG_NAME ==~ /^\d+.\d+.\d+$/) {
 
         stage('Clone and Update') {
-            git(url: 'https://github.com/nimble-platform/indexing-service.git', branch: env.BRANCH_NAME)
+            git(url: 'https://github.com/i-Asset/indexing-service.git', branch: env.BRANCH_NAME)
         }
 
         stage('Build Dependencies') {
             sh 'rm -rf common'
-            sh 'git clone https://github.com/nimble-platform/common'
+            sh 'git clone https://github.com/i-Asset/common'
             dir('common') {
                 sh 'git checkout ' + env.BRANCH_NAME
                 sh 'mvn clean install'
             }
+            
+            sh 'rm -rf solr-model'
+            sh 'git clone https://github.com/i-Asset/solr-model.git'
+            dir('solr-model') {
+                sh 'git checkout ' + env.BRANCH_NAME
+                sh 'mvn clean install'
+            }
+
+            sh 'rm -rf solr-indexing'
+            sh 'git clone https://github.com/i-Asset/solr-indexing.git'
+            dir('solr-indexing') {
+                sh 'git checkout ' + env.BRANCH_NAME
+                sh 'mvn clean install -DskipTests'
+            }
+            
         }
 
         stage('Set version') {
