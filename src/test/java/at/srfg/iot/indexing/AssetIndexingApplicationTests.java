@@ -40,18 +40,18 @@ public class AssetIndexingApplicationTests {
 	public void testSubmodel() {
 		AssetType asset = new AssetType();
 		asset.setUri("urn:asset:1");
-		asset.setLabel("MyAsset", Locale.ENGLISH);
+		asset.setLabel(Locale.ENGLISH, "MyAsset");
 		asset.setLocalName("1");
 		asset.setNameSpace("urn:asset:");
 		asset.setCode("1");
-		asset.addDescription("This is my first asset description", Locale.ENGLISH);
+		asset.addDescription(Locale.ENGLISH, "This is my first asset description");
 		SubmodelType submodelType = new SubmodelType();
 		submodelType.setUri("urn:asset:submodel:1");
-		submodelType.setLabel("submodel", Locale.ENGLISH);
+		submodelType.setLabel(Locale.ENGLISH, "submodel");
 		submodelType.setLocalName("1");
 		submodelType.setNameSpace("urn:asset:");
 		submodelType.setCode("1");
-		submodelType.addDescription("This is my first submodel description", Locale.ENGLISH);
+		submodelType.addDescription(Locale.ENGLISH, "This is my first submodel description");
 		submodelType.addProperty("myValue", "container", "param");
 		asset.addSubmodel(submodelType);
 		assetService.set(asset);
@@ -85,18 +85,17 @@ public class AssetIndexingApplicationTests {
 	@Test
 	public void testClassification() {
 		PropertyType labelProperty = new PropertyType();
-		labelProperty.setLabel("AssetProperty X", Locale.GERMAN);
+		labelProperty.setLabel(Locale.GERMAN, "AssetProperty X");
 		labelProperty.setCode("assetPropertyX");
 		labelProperty.setUri("urn:test:assetPropertyX");
 		labelProperty.setLocalName("urn:test:assetPropertyX");
 		labelProperty.setNameSpace("urn:test:");
 		labelProperty.setValueQualifier(ValueQualifier.STRING);
-		labelProperty.addItemFieldName("label");
 		propertyService.set(labelProperty);
 		AssetType asset = new AssetType();
 		asset.setUri("urn:test:asset1");
-		asset.setLabel("Asset",Locale.GERMAN);
-		asset.setLabel("Asset", Locale.ENGLISH);
+		asset.setLabel(Locale.GERMAN,  "Asset");
+		asset.setLabel(Locale.ENGLISH, "Asset");
 		// use the idShort of the model (hierarchy)
 		asset.addProperty(10.0, "operation", "mix", "demo");
 		asset.addProperty(150, labelProperty, "operation", "mix", "demo2" );
