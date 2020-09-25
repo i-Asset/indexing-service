@@ -1,5 +1,7 @@
 package at.srfg.iot.indexing.service.impl;
 
+import java.util.Set;
+
 import org.springframework.stereotype.Service;
 
 import at.srfg.indexing.core.service.impl.SolrServiceImpl;
@@ -17,6 +19,18 @@ public class PartyServiceImpl extends SolrServiceImpl<PartyType> implements Part
 	@Override
 	public Class<PartyType> getSolrClass() {
 		return PartyType.class;
+	}
+
+	@Override
+	public long deleteNameSpace(String nameSpace) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public long deleteNameSpaces(Set<String> nameSpace) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 

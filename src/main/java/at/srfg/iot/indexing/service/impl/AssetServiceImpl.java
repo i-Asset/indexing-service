@@ -1,6 +1,7 @@
 package at.srfg.iot.indexing.service.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,10 +12,14 @@ import at.srfg.indexing.model.asset.SubmodelType;
 import at.srfg.iot.indexing.service.AssetService;
 import at.srfg.iot.indexing.service.event.RemoveSubmodelAwareEvent;
 import at.srfg.iot.indexing.service.event.SubmodelAwareEvent;
+import at.srfg.iot.indexing.service.repository.AssetRepository;
 import at.srfg.iot.indexing.service.repository.SubmodelRepository;
 
 @Service
-public class AssetServiceImpl extends SolrServiceImpl<AssetType> implements AssetService{
+public class AssetServiceImpl extends SolrServiceImpl<AssetType> implements AssetService {
+	@Autowired
+	AssetRepository assetRepo;
+	
 	@Autowired
 	private SubmodelRepository submodelRepo;
 	
@@ -55,6 +60,19 @@ public class AssetServiceImpl extends SolrServiceImpl<AssetType> implements Asse
 		super.postRemove(t);
 		// send remove event
 		getEventPublisher().publishEvent(new RemoveSubmodelAwareEvent(this, t));
+	}
+
+	@Override
+	public long deleteNameSpace(String nameSpace) {
+		long deleted = submodelRepo.deleteByNameSpace(nameSpace);
+		deleted += assetRepo.deleteByNameSpace(nameSpace); 
+		return deleted;
+	}
+
+	@Override
+	public long deleteNameSpaces(Set<String> nameSpace) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 }

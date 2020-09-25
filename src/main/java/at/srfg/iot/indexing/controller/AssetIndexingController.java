@@ -120,4 +120,13 @@ public class AssetIndexingController extends BasicIndexingAPI implements AssetTy
 		assetService.remove(uri);
 		return true;
 	}
+
+	@Override
+	public long deleteConcepts(String nameSpace) {
+		long deleted = super.deleteConcepts(nameSpace);
+		deleted += assetService.deleteNameSpace(nameSpace);
+		deleted += partyService.deleteNameSpace(nameSpace);
+		return deleted;
+	}
+	
 }

@@ -3,6 +3,7 @@ package at.srfg.iot.indexing;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -67,7 +68,7 @@ public class AssetIndexingApplicationTests {
 		assertTrue(opt.isPresent());
 		SubmodelType read = opt.get();
 		assertTrue(read.getAsset().equals(asset.getUri()));
-		
+		List<String> containerParam = read.getProperties(String.class,"container", "param");
 		// 
 		assetService.remove(asset.getUri());
 		try {
@@ -118,7 +119,7 @@ public class AssetIndexingApplicationTests {
 		Optional<AssetType> read = assetService.get(asset.getUri());
 		assertTrue(read.isPresent());
 		AssetType a = read.get();
-		assertTrue(a.getIntPropertyValues("operation", "mix", "demo2").contains(Integer.valueOf(150)));
+		assertTrue(a.getProperties(Integer.class, "operation", "mix", "demo2").contains(Integer.valueOf(150)));
 		propertyService.remove(labelProperty.getUri());
 		// removing the asset will also remove the custom property
 		assetService.remove(asset.getUri());
