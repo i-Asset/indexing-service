@@ -7,7 +7,8 @@ import org.springframework.data.solr.repository.config.EnableSolrRepositories;
 @Configuration
 @EnableSolrRepositories(basePackages= {
 			"at.srfg.indexing.core.service.repository",
-			"at.srfg.iot.indexing.service.repository"
+			"at.srfg.iot.indexing.service.repository",
+			"at.srfg.iot.indexing.service.playground.repository"
 		}, 
 		schemaCreationSupport=true)
 public class SolrContext extends at.srfg.indexing.core.solr.SolrContext {
