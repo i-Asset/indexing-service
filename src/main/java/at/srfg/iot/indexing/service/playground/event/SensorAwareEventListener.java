@@ -1,64 +1,77 @@
-package at.srfg.iot.indexing.service.event;
+package at.srfg.iot.indexing.service.playground.event;
 
-import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import at.srfg.indexing.model.asset.ISubmodelAware;
-import at.srfg.indexing.model.asset.SubmodelType;
-import at.srfg.indexing.model.common.ICustomPropertyAware;
-import at.srfg.iot.indexing.service.repository.SubmodelRepository;
+import at.srfg.indexing.model.playground.ISensorAware;
+import at.srfg.indexing.model.playground.Sensor;
+import at.srfg.iot.indexing.service.playground.repository.SensorRepository;
 
 @Component
-public class SubmodelAwareEventListener {
+public class SensorAwareEventListener {
 
 	@Autowired
-	private SubmodelRepository submodelRepo;
+	private SensorRepository sensorRepo;
 	@Async
 	@EventListener
-	public void onRemoveCustomPropertyAware(RemoveSubmodelAwareEvent event) {
-		ISubmodelAware item = event.getItem();
-		// find all submodels linked to the submodel aware item
-		List<SubmodelType> subModels = submodelRepo.findByAsset(item.getUri());
+	public void onRemoveSensorAware(RemoveSensorAwareEvent event) {
+		ISensorAware item = event.getItem();
+		// find all sensors linked to the sensorAware item
+		List<Sensor> subModels = sensorRepo.findBySensorAware(item.getUri());
 		if ( ! subModels.isEmpty()) {
-			submodelRepo.deleteAll(subModels);
+			// delete ... only when list of sensorAware items is the item itself
+			subModels.stream().forEach(new Consumer<Sensor>() {
+
+				@Override
+				public void accept(Sensor t) {
+					if (t.getSensorAware().size()== 1) {
+						sensorRepo.delete(t);
+					}
+					else {
+						t.getSensorAware().remove(item.getUri());
+						sensorRepo.save(t);
+					}
+					
+				}});
 		}
 	}
 	@Async
 	@EventListener
-	public void onApplicationEvent(SubmodelAwareEvent event) {
+	public void onApplicationEvent(SensorAwareEvent event) {
 
-		ISubmodelAware item = event.getItem();
-		if ( item.getSubmodelMap() != null && !item.getSubmodelMap().isEmpty()) {
-			List<SubmodelType> existing = submodelRepo.findByAsset(item.getUri());
+		ISensorAware item = event.getItem();
+		if ( item.getSensorMap() != null && !item.getSensorMap().isEmpty()) {
+			List<Sensor> existing = sensorRepo.findBySensorAware(item.getUri());
 			
 			// find all properties based on idxField name
 			// keep a map of properties to change
-			Map<String, SubmodelType> changed = new HashMap<String, SubmodelType>();
+			Map<String, Sensor> changed = new HashMap<String, Sensor>();
 
 			// check whether an existing property lacks a itemFieldName or a label
-			existing.forEach(new Consumer<SubmodelType>() {
+			existing.forEach(new Consumer<Sensor>() {
 
 				@Override
-				public void accept(SubmodelType c) {
+				public void accept(Sensor c) {
 					// try to find the property in the custom property map based
 					// on the localNaem
-					SubmodelType change = item.getSubmodelMap().get(c.getUri());
-					// link the submodel to the current submodel aware
-					c.setAsset(item.getUri());
+					Sensor change = item.getSensorMap().get(c.getUri());
 					// 
 					if (change != null) {
 						boolean changeDetected = false;
+						
+						if (!c.getSensorAware().contains(item.getUri())) {
+							c.getSensorAware().add(item.getUri());
+							changeDetected = true;
+						}
 						// 
 						// harmonize labels
 						if ( harmonizeLabels(c.getLabel(), change.getLabel())) {
@@ -75,26 +88,29 @@ public class SubmodelAwareEventListener {
 							changed.put(c.getUri(), c);
 						}
 						// in any case remove the checked property (based on the key) from the item
-						item.getSubmodelMap().remove(change.getUri());
+						item.getSensorMap().remove(change.getUri());
 					}
 						
 				}
 			});
 			// process the remaining properties - they are not yet indexed!
-			item.getSubmodelMap().forEach(new BiConsumer<String, SubmodelType>() {
+			item.getSensorMap().forEach(new BiConsumer<String, Sensor>() {
 
 				@Override
-				public void accept(String qualifier, SubmodelType newProp) {
+				public void accept(String qualifier, Sensor newProp) {
 //					submodelRepo.save(newProp);
 					// add the new custom property to the index
-					newProp.setAsset(item.getUri());
+					if (newProp.getSensorAware()==null) {
+						newProp.setSensorAware(new HashSet<String>());
+					}
+					newProp.getSensorAware().add(item.getUri());
 					changed.put(newProp.getUri(), newProp);
 				}
 			});
 //			submodelRepo.saveAll(changed.values());
 			// save all changed & new properties
-			for (SubmodelType newPt : changed.values()) {
-				submodelRepo.save(newPt);
+			for (Sensor newPt : changed.values()) {
+				sensorRepo.save(newPt);
 			}
 		}
 	}
@@ -115,17 +131,5 @@ public class SubmodelAwareEventListener {
 			}
 		}
 		return changeDetected;
-	}
-	private Optional<String> findInItem(ICustomPropertyAware item, Collection<String> idxField) {
-		return idxField.stream()
-			.filter(new Predicate<String>() {
-
-				@Override
-				public boolean test(String t) {
-					return item.getCustomProperties().containsKey(t);
-				}
-				
-			})
-			.findFirst();
 	}
 }
