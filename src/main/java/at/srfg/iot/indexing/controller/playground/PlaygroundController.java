@@ -10,15 +10,15 @@ import org.springframework.data.solr.core.query.SolrPageRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import at.srfg.indexing.core.controller.BasicIndexingAPI;
-import at.srfg.indexing.model.playground.Sensor;
-import at.srfg.indexing.model.playground.SensorPlatform;
-import at.srfg.indexing.model.solr.FacetResult;
-import at.srfg.indexing.model.solr.IndexField;
-import at.srfg.indexing.model.solr.Search;
-import at.srfg.indexing.model.solr.SearchResult;
-import at.srfg.indexing.playground.ISensorIndexingAPI;
-import at.srfg.indexing.playground.ISensorPlatformIndexingAPI;
+import at.srfg.iot.common.datamodel.indexing.playground.ISensorIndexingAPI;
+import at.srfg.iot.common.datamodel.indexing.playground.ISensorPlatformIndexingAPI;
+import at.srfg.iot.common.solr.indexing.core.controller.BasicIndexingAPI;
+import at.srfg.iot.common.solr.model.model.playground.Sensor;
+import at.srfg.iot.common.solr.model.model.playground.SensorPlatform;
+import at.srfg.iot.common.solr.model.model.solr.FacetResult;
+import at.srfg.iot.common.solr.model.model.solr.IndexField;
+import at.srfg.iot.common.solr.model.model.solr.Search;
+import at.srfg.iot.common.solr.model.model.solr.SearchResult;
 import at.srfg.iot.indexing.service.playground.SensorPlatformService;
 import at.srfg.iot.indexing.service.playground.SensorService;
 

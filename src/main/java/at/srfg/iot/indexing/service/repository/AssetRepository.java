@@ -7,7 +7,7 @@ import java.util.Set;
 import org.springframework.data.solr.repository.SolrCrudRepository;
 import org.springframework.stereotype.Repository;
 
-import at.srfg.indexing.model.asset.AssetType;
+import at.srfg.iot.common.solr.model.model.asset.AssetType;
 
 @Repository
 public interface AssetRepository  extends SolrCrudRepository<AssetType, String>{

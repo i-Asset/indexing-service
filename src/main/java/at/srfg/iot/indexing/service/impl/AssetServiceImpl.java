@@ -6,9 +6,9 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import at.srfg.indexing.core.service.impl.SolrServiceImpl;
-import at.srfg.indexing.model.asset.AssetType;
-import at.srfg.indexing.model.asset.SubmodelType;
+import at.srfg.iot.common.solr.indexing.core.service.impl.SolrServiceImpl;
+import at.srfg.iot.common.solr.model.model.asset.AssetType;
+import at.srfg.iot.common.solr.model.model.asset.SubmodelType;
 import at.srfg.iot.indexing.service.AssetService;
 import at.srfg.iot.indexing.service.event.RemoveSubmodelAwareEvent;
 import at.srfg.iot.indexing.service.event.SubmodelAwareEvent;

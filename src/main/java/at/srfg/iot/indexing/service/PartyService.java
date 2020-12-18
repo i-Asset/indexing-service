@@ -2,8 +2,8 @@ package at.srfg.iot.indexing.service;
 
 import java.util.Set;
 
-import at.srfg.indexing.core.service.SolrService;
-import at.srfg.indexing.model.party.PartyType;
+import at.srfg.iot.common.solr.indexing.core.service.SolrService;
+import at.srfg.iot.common.solr.model.model.party.PartyType;
 
 public interface PartyService extends SolrService<PartyType> {
 	/**

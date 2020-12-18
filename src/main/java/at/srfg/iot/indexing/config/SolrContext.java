@@ -11,7 +11,7 @@ import org.springframework.data.solr.repository.config.EnableSolrRepositories;
 			"at.srfg.iot.indexing.service.playground.repository"
 		}, 
 		schemaCreationSupport=true)
-public class SolrContext extends at.srfg.indexing.core.solr.SolrContext {
+public class SolrContext extends at.srfg.iot.common.solr.indexing.core.solr.SolrContext {
 //	
 //	@Resource
 //	private Environment environment;

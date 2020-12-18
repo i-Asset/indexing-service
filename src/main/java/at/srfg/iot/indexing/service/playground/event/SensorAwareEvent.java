@@ -2,7 +2,7 @@ package at.srfg.iot.indexing.service.playground.event;
 
 import org.springframework.context.ApplicationEvent;
 
-import at.srfg.indexing.model.playground.ISensorAware;
+import at.srfg.iot.common.solr.model.model.playground.ISensorAware;
 
 public class SensorAwareEvent extends ApplicationEvent {
 

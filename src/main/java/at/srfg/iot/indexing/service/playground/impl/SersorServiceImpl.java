@@ -2,9 +2,9 @@ package at.srfg.iot.indexing.service.playground.impl;
 
 import org.springframework.stereotype.Service;
 
-import at.srfg.indexing.core.service.impl.SolrServiceImpl;
-import at.srfg.indexing.model.playground.ISensor;
-import at.srfg.indexing.model.playground.Sensor;
+import at.srfg.iot.common.solr.indexing.core.service.impl.SolrServiceImpl;
+import at.srfg.iot.common.solr.model.model.playground.ISensor;
+import at.srfg.iot.common.solr.model.model.playground.Sensor;
 import at.srfg.iot.indexing.service.playground.SensorService;
 
 

@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import at.srfg.indexing.core.service.impl.SolrServiceImpl;
-import at.srfg.indexing.model.playground.ISensorPlatform;
-import at.srfg.indexing.model.playground.Sensor;
-import at.srfg.indexing.model.playground.SensorPlatform;
+import at.srfg.iot.common.solr.indexing.core.service.impl.SolrServiceImpl;
+import at.srfg.iot.common.solr.model.model.playground.ISensorPlatform;
+import at.srfg.iot.common.solr.model.model.playground.Sensor;
+import at.srfg.iot.common.solr.model.model.playground.SensorPlatform;
 import at.srfg.iot.indexing.service.playground.SensorPlatformService;
 import at.srfg.iot.indexing.service.playground.event.RemoveSensorAwareEvent;
 import at.srfg.iot.indexing.service.playground.event.SensorAwareEvent;

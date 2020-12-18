@@ -5,7 +5,7 @@ import java.util.Set;
 import org.springframework.data.solr.repository.SolrCrudRepository;
 import org.springframework.stereotype.Repository;
 
-import at.srfg.indexing.model.playground.SensorPlatform;
+import at.srfg.iot.common.solr.model.model.playground.SensorPlatform;
 
 @Repository
 public interface SensorPlatformRepository extends SolrCrudRepository<SensorPlatform, String>{

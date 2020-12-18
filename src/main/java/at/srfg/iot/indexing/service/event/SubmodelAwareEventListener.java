@@ -14,9 +14,9 @@ import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import at.srfg.indexing.model.asset.ISubmodelAware;
-import at.srfg.indexing.model.asset.SubmodelType;
-import at.srfg.indexing.model.common.ICustomPropertyAware;
+import at.srfg.iot.common.solr.model.model.asset.ISubmodelAware;
+import at.srfg.iot.common.solr.model.model.asset.SubmodelType;
+import at.srfg.iot.common.solr.model.model.common.ICustomPropertyAware;
 import at.srfg.iot.indexing.service.repository.SubmodelRepository;
 
 @Component

@@ -5,7 +5,7 @@ import java.util.Set;
 import org.springframework.data.solr.repository.SolrCrudRepository;
 import org.springframework.stereotype.Repository;
 
-import at.srfg.indexing.model.party.PartyType;
+import at.srfg.iot.common.solr.model.model.party.PartyType;
 
 @Repository
 public interface PartyRepository extends SolrCrudRepository<PartyType, String>{

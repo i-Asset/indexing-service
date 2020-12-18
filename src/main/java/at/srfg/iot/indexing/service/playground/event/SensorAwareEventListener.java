@@ -12,8 +12,8 @@ import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import at.srfg.indexing.model.playground.ISensorAware;
-import at.srfg.indexing.model.playground.Sensor;
+import at.srfg.iot.common.solr.model.model.playground.ISensorAware;
+import at.srfg.iot.common.solr.model.model.playground.Sensor;
 import at.srfg.iot.indexing.service.playground.repository.SensorRepository;
 
 @Component

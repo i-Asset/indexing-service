@@ -13,11 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import at.srfg.indexing.core.service.PropertyService;
-import at.srfg.indexing.model.asset.AssetType;
-import at.srfg.indexing.model.asset.SubmodelType;
-import at.srfg.indexing.model.common.PropertyType;
-import at.srfg.indexing.model.common.ValueQualifier;
+import at.srfg.iot.common.solr.indexing.core.service.PropertyService;
+import at.srfg.iot.common.solr.model.model.asset.AssetType;
+import at.srfg.iot.common.solr.model.model.asset.SubmodelType;
+import at.srfg.iot.common.solr.model.model.common.PropertyType;
+import at.srfg.iot.common.solr.model.model.common.ValueQualifier;
 import at.srfg.iot.indexing.service.AssetService;
 import at.srfg.iot.indexing.service.SubmodelService;
 
