@@ -17,11 +17,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 		ManagementWebSecurityAutoConfiguration.class
 		})
 @EnableDiscoveryClient
-@ComponentScan({
-	// reuse components from solr-indexing (indexing core)
-	"at.srfg.indexing.core", 
-	// scan for components in the following sub-tree
-	"at.srfg.iot.indexing",
+@ComponentScan(basePackages = {
+		// scan for components in the following sub-tree
+		"at.srfg.iot.indexing",
+		// core components (to be reused)
+		"at.srfg.iot.common.solr.indexing.core",
+
+		
 	})
 @RestController
 @EnableSwagger2
