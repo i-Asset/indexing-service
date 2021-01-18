@@ -1,17 +1,16 @@
 package at.srfg.iot.indexing;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import at.srfg.iot.common.solr.indexing.core.service.PropertyService;
 import at.srfg.iot.common.solr.model.model.asset.AssetType;
@@ -21,7 +20,6 @@ import at.srfg.iot.common.solr.model.model.common.ValueQualifier;
 import at.srfg.iot.indexing.service.AssetService;
 import at.srfg.iot.indexing.service.SubmodelService;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class AssetIndexingApplicationTests {
 	@Autowired
