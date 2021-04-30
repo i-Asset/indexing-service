@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import at.srfg.iot.common.datamodel.indexing.AssetTypeIndexing;
 import at.srfg.iot.common.datamodel.indexing.PartyTypeIndexing;
+import at.srfg.iot.common.datamodel.indexing.SubmodelTypeIndexing;
 import at.srfg.iot.common.solr.indexing.core.controller.BasicIndexingAPI;
 import at.srfg.iot.common.solr.model.model.asset.AssetType;
+import at.srfg.iot.common.solr.model.model.asset.SubmodelType;
 import at.srfg.iot.common.solr.model.model.party.PartyType;
 import at.srfg.iot.common.solr.model.model.solr.FacetResult;
 import at.srfg.iot.common.solr.model.model.solr.IndexField;
@@ -22,6 +24,7 @@ import at.srfg.iot.common.solr.model.model.solr.Search;
 import at.srfg.iot.common.solr.model.model.solr.SearchResult;
 import at.srfg.iot.indexing.service.AssetService;
 import at.srfg.iot.indexing.service.PartyService;
+import at.srfg.iot.indexing.service.SubmodelService;
 //import eu.nimble.utility.LoggerUtils;
 import io.swagger.annotations.Api;
 
@@ -29,10 +32,13 @@ import io.swagger.annotations.Api;
 @RestController
 @Api(value = "Indexing Controller", description = "Search API to perform Solr operations on indexed parties (organizations), items, item-properties, "
 		+ "property-codes and classes (item categories)")
-public class AssetIndexingController extends BasicIndexingAPI implements AssetTypeIndexing, PartyTypeIndexing {
+public class AssetIndexingController extends BasicIndexingAPI implements AssetTypeIndexing, PartyTypeIndexing, SubmodelTypeIndexing {
 
 	@Autowired
 	protected AssetService assetService;
+	
+	@Autowired
+	protected SubmodelService modelService;
 	
 	@Autowired
 	protected PartyService partyService;
@@ -127,6 +133,46 @@ public class AssetIndexingController extends BasicIndexingAPI implements AssetTy
 		deleted += assetService.deleteNameSpace(nameSpace);
 		deleted += partyService.deleteNameSpace(nameSpace);
 		return deleted;
+	}
+
+	@Override
+	public Optional<SubmodelType> getSubmodelType(String uri) throws Exception {
+		return modelService.get(uri);
+	}
+
+	@Override
+	public Collection<IndexField> fieldsForSubmodelType(Set<String> fieldNames) throws Exception {
+		return modelService.fields(fieldNames);
+	}
+
+	@Override
+	public SearchResult<SubmodelType> searchForSubmodelType(String query, List<String> filterQuery,
+			List<String> facetFields, int facetLimit, int facetMinCount, int start, int rows) throws Exception {
+		return modelService.select(query, filterQuery, facetFields, facetLimit, 
+				facetMinCount, new SolrPageRequest(start, rows));
+	}
+
+	@Override
+	public SearchResult<SubmodelType> searchForSubmodelType(Search search) throws Exception {
+		return modelService.search(search);
+	}
+
+	@Override
+	public FacetResult suggestForSubmodelType(String query, String fieldName, int limit, int minCount)
+			throws Exception {
+		return modelService.suggest(query, fieldName, limit, minCount);
+	}
+
+	@Override
+	public SubmodelType setSubmodelType(SubmodelType prop) throws Exception {
+		modelService.set(prop);
+		return prop; 
+	}
+
+	@Override
+	public boolean deleteSubmodelType(String uri) throws Exception {
+		modelService.remove(uri);
+		return true;
 	}
 	
 }
